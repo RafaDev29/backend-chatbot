@@ -1,7 +1,4 @@
-const { GoogleGenerativeAI } = require("@google/generative-ai");
-
-// Inicializa el cliente con la clave de API
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const { getGeminiModel } = require("../../config/gemini");
 
 /**
  * Consulta a Gemini y obtiene una respuesta generada.
@@ -10,12 +7,13 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
  */
 const queryGemini = async (input) => {
   try {
-    // Selecciona el modelo adecuado
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    // Obtiene el modelo desde la configuración
+    const model = getGeminiModel();
 
     // Realiza la solicitud al modelo
     const result = await model.generateContent(input);
     const response = await result.response;
+
     return response.text();
   } catch (error) {
     console.error("Error al consultar la API de Gemini:", error.message);

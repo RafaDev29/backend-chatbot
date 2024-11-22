@@ -1,28 +1,19 @@
-const axios = require("axios");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-const geminiRequest = async (input) => {
+// Inicializa el cliente con la clave de API
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+/**
+ * Obtiene el modelo generativo para interactuar con la API de Gemini.
+ * @returns {Object} - Modelo inicializado de Gemini.
+ */
+const getGeminiModel = () => {
   try {
-    const response = await axios.post(
-      `${process.env.GEMINI_API_URL}?key=${process.env.GEMINI_API_KEY}`,
-      {
-        contents: [
-          {
-            parts: [{ text: input }],
-          },
-        ],
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    return response.data;
+    return genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
   } catch (error) {
-    console.error("Error al consultar la API de Gemini:", error.response?.data || error.message);
-    throw new Error("Error en la consulta a Gemini.");
+    console.error("Error al inicializar el modelo de Gemini:", error.message);
+    throw new Error("No se pudo inicializar el modelo de Gemini.");
   }
 };
 
-module.exports = geminiRequest;
+module.exports = { getGeminiModel };

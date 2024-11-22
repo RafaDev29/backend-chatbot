@@ -23,7 +23,6 @@ const handleGeminiQuery = async (req, res) => {
       data: response,
     });
   } catch (error) {
-    console.error("Error en el controlador de Gemini:", error.message);
     res.status(500).json({
       status: false,
       message: "Hubo un problema al procesar tu consulta.",
