@@ -5,6 +5,7 @@ const questionsRoutes = require("./src/modules/questions/questions.routes");
 const geminiRoutes = require('./src/modules/gemini/gemini.routes');
 const questionBankRoutes = require("./src/modules/questionBank/questionBank.routes");
 const { formatResponseMiddleware } = require("./src/middlewares/response.middleware");
+const authRoutes = require('./src/modules/auth/auth.routes');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -16,6 +17,10 @@ app.use(formatResponseMiddleware);
 app.use("/api/questions", questionsRoutes);
 app.use('/api/gemini', geminiRoutes);
 app.use("/api/questionBank", questionBankRoutes);
+app.use('/auth', authRoutes);
+
+
+
 app.get("/", (req, res) => {
   res.send("Servidor funcionando correctamente.");
 });
