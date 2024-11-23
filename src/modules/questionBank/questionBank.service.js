@@ -33,7 +33,7 @@ const findClosestQuestion = async (userInput) => {
 
     // Extrae el texto utilizando el método correcto
     const geminiResponse = await response.text();
-    console.log("Respuesta de Gemini:", geminiResponse);
+    //console.log("Respuesta de Gemini:", geminiResponse);
 
     // Manejo del resultado
     const closestQuestionId = geminiResponse.trim().toLowerCase() === "false"
@@ -48,7 +48,7 @@ const findClosestQuestion = async (userInput) => {
     const closestQuestion = questionsBank.find((q) => q.id === closestQuestionId);
 
     if (closestQuestion) {
-      console.log("Pregunta encontrada en el banco:", closestQuestion);
+      //console.log("Pregunta encontrada en el banco:", closestQuestion);
       return {
         id: closestQuestion.id,
         question: closestQuestion.question,
@@ -58,7 +58,7 @@ const findClosestQuestion = async (userInput) => {
 
     return { error: "La IA encontró un ID, pero no coincide con nuestro banco." };
   } catch (error) {
-    console.error("Error al consultar la API de Gemini o procesar datos:", error.response?.data || error.message);
+   // console.error("Error al consultar la API de Gemini o procesar datos:", error.response?.data || error.message);
     throw new Error("Error al procesar la consulta del usuario.");
   }
 };
